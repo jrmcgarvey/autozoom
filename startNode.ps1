@@ -1,0 +1,1 @@
+Start-Process -NoNewWindow -WorkingDirectory C:\users\jmcga\autozoom -FilePath "C:\Program Files\nodejs\node.exe" -ArgumentList "index.js"
