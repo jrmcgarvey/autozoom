@@ -36,13 +36,19 @@ ee.on("doWebSocket", () => {
     // console.log(data.toString());
     const sentData = data.toString();
     const sentLines = sentData.split(/\r?\n/);
-    const zoomURL = sentLines.find((line) => line.includes("https://"));
+    const zoomLine = sentLines.find((line) => line.includes("https://"));
+    const zoomWords = zoomLine.split(" ");
+    const zoomURL = zoomWords.find((word) => word.includes("https://"))
     const zoomValues = zoomURL?.split("/");
-    const meetingNumber = zoomValues?.pop();
-    // console.log("meetingNumber", meetingNumber);
-    exec(
-      `"c:/Program Files/Zoom/bin/Zoom.exe" --url="zoommtg://zoom.us/join?action=join&confno=${meetingNumber}"`,
-    );
+    const meetingInfo = zoomValues.pop();
+    const meetingParts = meetingInfo.split("?");
+    let meetingNumber = meetingParts[0];
+    if (meetingParts.length > 1) {
+      meetingNumber += `&${meetingParts[1]}`
+    }
+    const execValue = `"c:/Program Files/Zoom/bin/Zoom.exe" --url="zoommtg://zoom.us/join?action=join&confno=${meetingNumber}"`;
+  //  console.log("execValue:", execValue);
+    exec(execValue);
     log.info(`Started meeting ${meetingNumber}.`)
   });
 });

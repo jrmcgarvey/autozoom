@@ -1,0 +1,20 @@
+To get the program to run automatically, I added a value at this registry location:
+
+Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
+
+I set a new value called autozoom, with this value:
+
+"C:\Windows\System32\wscript.exe" C:\users\xxxx\autozoom\runNode.vbs
+
+It's possible that this is not the best way to do it.  It may be that the
+right way is to use
+
+HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
+
+as described here
+
+https://learn.microsoft.com/en-us/windows/win32/setupapi/run-and-runonce-registry-keys
+
+or to put an entry in the startup folder as described here:
+
+https://learn.microsoft.com/en-us/previous-versions/bb325654(v=msdn.10)#developing-a-multi-part-setup-application
